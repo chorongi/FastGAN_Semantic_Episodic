@@ -1,0 +1,71 @@
+data:
+    # Dataset Name
+    dataset: "GRUMPY-CAT"
+
+    # Original Data Paths
+    path_train: "data/100-shot-grumpy_cat"
+    path_val: "data/100-shot-grumpy_cat"
+    path_test: "data/100-shot-grumpy_cat"
+
+    # Other Paths
+    checkpoint_dir: "state_dicts/checkpoint/"
+    pretrain_netD_path : "pretrain/model.t7"
+    pretrain_netG_path : "pretrain/model.t7"
+    pretrain_optD_path : "pretrain/optim.t7"
+    pretrain_optG_path : "pretrain/optim.t7"
+    
+    # packaged is True if it the saved model is packaged with the format as the following
+    # exp_name-epoch-number.ckpt
+    #      |- model_state_dict
+    #      |- optim_state_dict
+    #      |- train_stats
+    #      |- val_stats
+    
+model:
+    name: "FAST-GAN-no-Attn"
+    # device: "cuda:0"
+    device: "cuda:0"
+    packaged: False
+    pretrained_D: False
+    pretrained_G: False
+
+    im_size: 256
+    use_noise: True
+    ndf: 64
+    ngf: 64
+    nz: 256
+
+    netG:
+        attn: None
+    
+    netD:
+        attn:  None
+
+train:
+    # Train Info
+    exp_name: "BaseLine No Attention"
+    load_optD: False
+    load_optG: False
+
+    num_epochs: 3000
+    save_iters: 100
+    batch_size: 2
+    num_workers: 1
+
+    policy: "color,translation"
+
+    # Optimizer
+    optD: "Adam"
+    optD_params:
+        lr: 0.0002
+        betas: [0.5, 0.999]
+        weight_decay: 0.0000012
+
+    optG: "Adam"
+    optG_params:
+        lr: 0.0002
+        betas: [0.5, 0.999]
+        weight_decay: 0.0000012
+
+
+
